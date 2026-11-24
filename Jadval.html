@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pul yigʻish</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--bg:#f3f5f8;--surface:#fff;--text:#1d2530;--muted:#7a8490;--line:#dde1e7;--accent:#1a7f5a;--accent-text:#fff;--danger:#d64545;--soft:#e5f4ec}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171b;--surface:#1d2127;--text:#e8ebef;--muted:#8d97a3;--line:#343b44;--accent:#3fb98a;--accent-text:#0b1a13;--danger:#ef6a6a;--soft:#1f3a30}}
+:root[data-theme="dark"]{--bg:#14171b;--surface:#1d2127;--text:#e8ebef;--muted:#8d97a3;--line:#343b44;--accent:#3fb98a;--accent-text:#0b1a13;--danger:#ef6a6a;--soft:#1f3a30}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--surface);z-index:10}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);border-bottom:1px solid var(--line);padding:10px 12px}
+.top{display:flex;gap:8px;align-items:center;max-width:640px;margin:0 auto}
+.seg{flex:1;display:flex;background:var(--bg);border-radius:12px;padding:3px;gap:3px}
+.seg button{flex:1;border:0;background:transparent;color:var(--muted);font:inherit;font-size:14px;font-weight:600;padding:10px 4px;border-radius:10px}
+.seg button.on{background:var(--accent);color:var(--accent-text)}
+.cbtn{border:1px solid var(--line);background:var(--surface);color:var(--text);font-size:20px;border-radius:12px;width:42px;height:46px;flex:none}
+.sum{max-width:640px;margin:8px auto 0;display:flex;justify-content:space-between;gap:8px;font-size:13px;color:var(--muted)}
+.sum b{color:var(--text)}
+main{max-width:640px;margin:0 auto;padding:10px 12px 40px}
+.hint{font-size:13px;color:var(--muted);margin:0 0 10px}
+.row{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 10px;margin-bottom:8px;min-height:54px}
+.idx{width:22px;color:var(--muted);font-size:13px;text-align:center;flex:none}
+.nm{flex:1;min-width:0;font:inherit;font-size:17px;border:0;background:transparent;color:var(--text);padding:10px 4px;outline:none;overflow-wrap:anywhere}
+input.nm::placeholder{color:var(--muted)}
+div.nm.paid{text-decoration:line-through;text-decoration-thickness:2px;color:var(--muted)}
+div.nm.empty{font-style:italic}
+.row.paid{background:var(--soft)}
+.am{display:flex;align-items:center;gap:4px;flex:none;color:var(--muted);font-size:14px}
+.am input{width:84px;text-align:right;font:inherit;font-size:16px;font-weight:600;border:1px solid var(--line);border-radius:8px;padding:8px 6px;background:var(--bg);color:var(--text)}
+.acts{display:flex;gap:6px;flex:none}
+.acts button{font:inherit;font-size:14px;padding:9px 12px;border-radius:9px;border:1px solid var(--line);background:var(--surface);color:var(--text)}
+.acts button.del{background:var(--danger);border-color:var(--danger);color:#fff}
+.add{width:100%;font:inherit;font-weight:600;padding:14px;border-radius:12px;border:2px dashed var(--line);background:transparent;color:var(--accent)}
+.empty-note{text-align:center;color:var(--muted);padding:20px 0}
+.calc{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding:10px 12px calc(12px + env(safe-area-inset-bottom,0px));display:none;box-shadow:0 -6px 20px rgba(0,0,0,.15)}
+.calc.open{display:block}
+.calc-in{max-width:420px;margin:0 auto}
+.disp{background:var(--bg);border-radius:12px;padding:10px 14px;margin-bottom:10px;text-align:right;min-height:68px}
+.disp .e{font-size:14px;color:var(--muted);min-height:20px;overflow-x:auto;white-space:nowrap}
+.disp .r{font-size:30px;font-weight:700;overflow-x:auto;white-space:nowrap}
+.keys{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:52px;gap:8px}
+.keys button{font:inherit;font-size:20px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--text)}
+.keys button.op{background:var(--soft);color:var(--accent);font-weight:700}
+.keys button.eq{background:var(--accent);color:var(--accent-text);grid-row:span 2;font-weight:700}
+.keys button.z{grid-column:span 2}
+.close{display:block;margin:0 auto 8px;border:0;background:var(--line);width:44px;height:5px;border-radius:3px;padding:0}
+.nmw{flex:1;min-width:0;display:flex;flex-direction:column}
+.nmw .nm{flex:none;width:100%}
+.bd{font-size:12px;color:var(--accent);padding:0 4px 4px;margin-top:-6px}
+.row.sel{outline:2px solid var(--accent);background:var(--soft)}
+.row.sel .idx{color:var(--accent);font-size:18px}
+.gbar{position:fixed;left:0;right:0;bottom:0;z-index:15;background:var(--surface);border-top:1px solid var(--line);padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));display:none;box-shadow:0 -6px 20px rgba(0,0,0,.15)}
+.gbar.open{display:block}
+.gbar-in{max-width:640px;margin:0 auto;display:flex;gap:8px;align-items:center}
+.gbar-in span{font-size:13px;color:var(--muted);flex:none}
+.gbar-in input{flex:1;min-width:0;font:inherit;border:1px solid var(--line);border-radius:10px;padding:11px 10px;background:var(--bg);color:var(--text)}
+.gbar-in button{flex:none;font:inherit;font-weight:700;padding:11px 14px;border-radius:10px;border:0;background:var(--accent);color:var(--accent-text)}
+.gh{font-size:17px;margin:18px 0 8px}
+.gc{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.gt{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.gn{font-weight:700}
+.gdel{font:inherit;font-size:13px;border:1px solid var(--line);background:transparent;color:var(--danger);border-radius:8px;padding:6px 10px;flex:none}
+.gs{font-size:13px;color:var(--muted);margin:4px 0 8px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:14px}
+.chip.paid{text-decoration:line-through;color:var(--muted)}
+body.gopen main{padding-bottom:100px}
+body.copen main{padding-bottom:400px}
+</style>
+</head>
+<body>
+<header>
+  <div class="top">
+    <div class="seg">
+      <button id="mName" class="on">✏️ Ism</button>
+      <button id="mMoney">💰 Pul</button>
+      <button id="mGroup">👥 Guruh</button>
+    </div>
+    <button class="cbtn" id="tToggle" aria-label="Tema">🌙</button>
+    <button class="cbtn" id="cToggle" aria-label="Kalkulyator">🧮</button>
+  </div>
+  <div class="sum"><span>Yigʻildi: <b id="s1">0</b> / <span id="s2">0</span> Soʻm</span><span>Toʻlaganlar: <b id="s3">0/0</b></span></div>
+</header>
+<main>
+  <p class="hint" id="hint"></p>
+  <div id="list"></div>
+  <div id="groups"></div>
+  <button class="add" id="addBtn">+ Ism qoʻshish</button>
+</main>
+
+<div class="gbar" id="gbar"><div class="gbar-in"><span id="gcnt">0 ta tanlandi</span><input id="gName" type="text" placeholder="Guruh nomi" autocomplete="off"><button id="gMake">Guruh qilish</button></div></div>
+
+<div class="calc" id="calc">
+  <div class="calc-in">
+    <button class="close" id="cClose" aria-label="Yopish"></button>
+    <div class="disp"><div class="e" id="ce"></div><div class="r" id="cr">0</div></div>
+    <div class="keys" id="keys"></div>
+  </div>
+</div>
+
+<script>
+var KEY='pul-yigish-v1',S={people:[],groups:[]},mode='name',confirmId=null,sel={};
+try{var raw=localStorage.getItem(KEY);if(raw){var q=JSON.parse(raw);if(q&&q.people)S=q}}catch(e){}
+if(!S.groups)S.groups=[];
+if(!S.people.length)S.people.push(mk());
+function mk(){return {id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),n:'',a:0,p:false}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function fmt(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,' ')}
+function h(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e}
+var list=document.getElementById('list');
+
+function summary(){
+  var got=0,all=0,k=0;
+  S.people.forEach(function(p){all+=p.a;if(p.p){got+=p.a;k++}});
+  document.getElementById('s1').textContent=fmt(got);
+  document.getElementById('s2').textContent=fmt(all);
+  document.getElementById('s3').textContent=k+'/'+S.people.length;
+}
+
+function render(){
+  list.innerHTML='';
+  document.getElementById('hint').textContent=mode==='name'
+    ?'Ism yozing. Chizilgan ismni bossangiz oʻchirish chiqadi.'
+    :mode==='money'?'Pul bergan ismni bosing, ustiga chiziq tushadi. Qayta bossangiz qaytadi.':'Ismlarni bosib belgilang, keyin pastdagi "Guruh qilish" tugmasini bosing.';
+  document.getElementById('mName').className=mode==='name'?'on':'';
+  document.getElementById('mMoney').className=mode==='money'?'on':'';
+  document.getElementById('mGroup').className=mode==='group'?'on':'';
+  document.getElementById('addBtn').style.display=mode==='name'?'block':'none';
+  if(!S.people.length){list.appendChild(h('div','empty-note','Hozircha ism yoʻq'))}
+  S.people.forEach(function(p,i){
+    var row=h('div','row'+(p.p?' paid':'')+(mode==='group'&&sel[p.id]?' sel':''));
+    row.appendChild(h('span','idx',mode==='group'?(sel[p.id]?'✓':'○'):String(i+1)));
+    var nm;
+    if(mode==='name'&&!p.p){
+      nm=h('input','nm');nm.type='text';nm.value=p.n;nm.placeholder='Ism yozing';nm.autocomplete='off';
+      nm.oninput=function(){p.n=nm.value;save()};
+      nm.onkeydown=function(e){if(e.key==='Enter'){e.preventDefault();addPerson()}};
+    }else{
+      nm=h('div','nm'+(p.p?' paid':'')+(p.n?'':' empty'),p.n||'Ismsiz');
+      nm.onclick=function(){
+        if(mode==='group'){if(sel[p.id])delete sel[p.id];else sel[p.id]=1;render()}
+        else if(mode==='money'){p.p=!p.p;save();render()}
+        else if(p.p){confirmId=(confirmId===p.id)?null:p.id;render()}
+      };
+    }
+    var gr=groupOf(p),wrap=h('div','nmw');
+    wrap.appendChild(nm);
+    if(gr)wrap.appendChild(h('div','bd','👥 '+gr.name));
+    row.appendChild(wrap);
+    if(mode==='name'&&confirmId===p.id){
+      var a=h('div','acts');
+      var d=h('button','del','Oʻchirish');
+      d.onclick=function(){S.people=S.people.filter(function(x){return x.id!==p.id});confirmId=null;cleanGroups();save();render()};
+      var c=h('button','','Yoʻq');
+      c.onclick=function(){confirmId=null;render()};
+      a.appendChild(d);a.appendChild(c);row.appendChild(a);
+    }else{
+      var am=h('div','am');
+      var inp=h('input');inp.type='text';inp.inputMode='numeric';inp.value=fmt(p.a);
+      inp.onfocus=function(){inp.select()};
+      inp.oninput=function(){
+        var dg=inp.value.replace(/\D/g,'').slice(0,12);
+        p.a=dg?parseInt(dg,10):0;inp.value=fmt(p.a);save();summary();
+      };
+      am.appendChild(inp);am.appendChild(h('span','','Soʻm'));
+      row.appendChild(am);
+    }
+    list.appendChild(row);
+  });
+  summary();
+  renderGroups();
+}
+
+function addPerson(){
+  S.people.push(mk());save();render();
+  var ins=list.querySelectorAll('input.nm');
+  if(ins.length)ins[ins.length-1].focus();
+}
+document.getElementById('addBtn').onclick=addPerson;
+document.getElementById('mName').onclick=function(){mode='name';confirmId=null;sel={};render()};
+document.getElementById('mMoney').onclick=function(){mode='money';confirmId=null;sel={};render()};
+document.getElementById('mGroup').onclick=function(){mode='group';confirmId=null;sel={};render()};
+document.getElementById('gMake').onclick=function(){makeGroup()};
+
+/* Tema */
+var tb=document.getElementById('tToggle');
+function isDark(){var t=document.documentElement.getAttribute('data-theme');return t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches}
+function themeIcon(){tb.textContent=isDark()?'☀️':'🌙'}
+try{var th=localStorage.getItem('pul-theme');if(th)document.documentElement.setAttribute('data-theme',th)}catch(e){}
+tb.onclick=function(){var n=isDark()?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('pul-theme',n)}catch(e){}themeIcon()};
+themeIcon();
+
+/* Guruh */
+function groupOf(p){if(!p.g)return null;for(var i=0;i<S.groups.length;i++)if(S.groups[i].id===p.g)return S.groups[i];return null}
+function cleanGroups(){S.groups=S.groups.filter(function(g){return S.people.some(function(p){return p.g===g.id})})}
+function makeGroup(){
+  var ps=S.people.filter(function(p){return sel[p.id]});
+  if(!ps.length)return;
+  var ne=document.getElementById('gName');
+  var g={id:Date.now().toString(36),name:ne.value.trim()||('Guruh '+(S.groups.length+1))};
+  S.groups.push(g);
+  ps.forEach(function(p){p.g=g.id});
+  sel={};ne.value='';cleanGroups();save();render();
+}
+function renderGroups(){
+  var box=document.getElementById('groups');box.innerHTML='';
+  var n=S.people.filter(function(p){return sel[p.id]}).length;
+  var on=(mode==='group'&&n>0);
+  document.getElementById('gbar').className='gbar'+(on?' open':'');
+  document.body.classList.toggle('gopen',on);
+  document.getElementById('gcnt').textContent=n+' ta tanlandi';
+  if(mode!=='group')return;
+  if(!S.groups.length){box.appendChild(h('p','hint','Hozircha guruh yoʻq. Ismlarni bosib belgilang, pastda Guruh qilish tugmasi chiqadi.'));return}
+  box.appendChild(h('h2','gh','Guruhlar'));
+  S.groups.forEach(function(g){
+    var ms=S.people.filter(function(p){return p.g===g.id}),got=0,all=0;
+    ms.forEach(function(p){all+=p.a;if(p.p)got+=p.a});
+    var c=h('div','gc'),hd=h('div','gt');
+    hd.appendChild(h('div','gn',g.name+' · '+ms.length+' ta'));
+    var d=h('button','gdel','Guruhni oʻchirish');
+    d.onclick=function(){ms.forEach(function(p){p.g=null});S.groups=S.groups.filter(function(x){return x.id!==g.id});save();render()};
+    hd.appendChild(d);c.appendChild(hd);
+    c.appendChild(h('div','gs','Yigʻildi: '+fmt(got)+' / '+fmt(all)+' Soʻm'));
+    var cs=h('div','chips');
+    ms.forEach(function(p){
+      var ch=h('span','chip'+(p.p?' paid':''),(p.n||'Ismsiz')+' ✕');
+      ch.onclick=function(){p.g=null;cleanGroups();save();render()};
+      cs.appendChild(ch);
+    });
+    c.appendChild(cs);box.appendChild(c);
+  });
+}
+
+/* Kalkulyator */
+var ex='',calc=document.getElementById('calc');
+var layout=[['C','op'],['⌫','op'],['÷','op'],['×','op'],
+['7'],['8'],['9'],['−','op'],
+['4'],['5'],['6'],['+','op'],
+['1'],['2'],['3'],['=','eq'],
+['0','z'],['.']];
+var keys=document.getElementById('keys');
+layout.forEach(function(k){
+  var b=h('button',(k[1]||''),k[0]);
+  b.onclick=function(){press(k[0])};
+  keys.appendChild(b);
+});
+function evalEx(s){
+  var e=s.replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-');
+  if(!e||!/^[\d+\-*\/.() ]+$/.test(e))return null;
+  try{var r=Function('return ('+e+')')();return(typeof r==='number'&&isFinite(r))?Math.round(r*1e9)/1e9:null}catch(x){return null}
+}
+function press(k){
+  var last=ex.slice(-1),ops='+−×÷';
+  if(k==='C'){ex=''}
+  else if(k==='⌫'){ex=ex.slice(0,-1)}
+  else if(k==='='){var r=evalEx(ex);if(r!==null)ex=String(r);else if(ex)document.getElementById('cr').textContent='Xato'}
+  else if(ops.indexOf(k)>-1){
+    if(!ex){if(k==='−')ex='−';}
+    else if(ops.indexOf(last)>-1){ex=ex.slice(0,-1)+k}
+    else ex+=k;
+  }else{ex+=k}
+  showCalc(k==='=');
+}
+function showCalc(done){
+  var r=evalEx(ex),ce=document.getElementById('ce'),cr=document.getElementById('cr');
+  if(done){ce.textContent='';cr.textContent=ex||'0';return}
+  ce.textContent=ex;
+  cr.textContent=(r!==null&&/[+−×÷]/.test(ex.slice(1)))?fmt(r):(ex||'0');
+}
+function toggleCalc(){var o=calc.classList.toggle('open');document.body.classList.toggle('copen',o)}
+document.getElementById('cToggle').onclick=toggleCalc;
+document.getElementById('cClose').onclick=toggleCalc;
+
+render();
+</script>
+</body>
+</html>
